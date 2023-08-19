@@ -1,10 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
-
-NULLABLE = {
-    'blank': True,
-    'null': True
-}
+from users.models import NULLABLE
 
 
 class Article(models.Model):

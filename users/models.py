@@ -1,11 +1,7 @@
 from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 
-
-NULLABLE = {
-    'blank': True,
-    'null': True
-}
+NULLABLE = {'blank': True, 'null': True}
 
 
 class User(AbstractUser):

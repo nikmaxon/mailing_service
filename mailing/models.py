@@ -1,14 +1,9 @@
 from django.db import models
-from django.forms import ModelForm
 from django.utils import timezone
-
-from users.models import User
-
-NULLABLE = {'blank': True, 'null': True}
+from users.models import User, NULLABLE
 
 
 class Message(models.Model):
-
     theme = models.CharField(max_length=150, verbose_name='тема сообщения')
     body = models.TextField()
 
@@ -21,7 +16,6 @@ class Message(models.Model):
 
 
 class Mailing(models.Model):
-
     TITLE_CHOICES_PERIODICITY = [
         (1, 'Раз в день'),
         (2, 'Раз в неделю',),
@@ -35,7 +29,8 @@ class Mailing(models.Model):
     ]
 
     mailing_time = models.DateTimeField(verbose_name="время рассылки", default=timezone.now)
-    periodicity = models.PositiveSmallIntegerField(verbose_name="периодичность", choices=TITLE_CHOICES_PERIODICITY, default=1)
+    periodicity = models.PositiveSmallIntegerField(verbose_name="периодичность", choices=TITLE_CHOICES_PERIODICITY,
+                                                   default=1)
     status = models.PositiveSmallIntegerField(verbose_name='статус рассылки', choices=TITLE_CHOICES_STATUS, default=1)
     massage = models.ForeignKey(Message, on_delete=models.SET_NULL, **NULLABLE)
     user = models.ForeignKey(User, verbose_name='пользователь', on_delete=models.CASCADE, **NULLABLE)
@@ -49,7 +44,6 @@ class Mailing(models.Model):
 
 
 class Log(models.Model):
-
     date_attempt = models.DateTimeField(verbose_name='Дата попытки')
     status = models.CharField(max_length=150, verbose_name='Статус попытки')
     answer = models.TextField(**NULLABLE, verbose_name='ответ сервера')
@@ -61,5 +55,3 @@ class Log(models.Model):
     class Meta:
         verbose_name = 'Лог'
         verbose_name_plural = 'Логи'
-
-
