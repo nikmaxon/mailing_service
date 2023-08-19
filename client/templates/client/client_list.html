@@ -1,0 +1,38 @@
+{% extends 'mailing/base.html'%}
+{% block content %}
+<div class="col-12 mb-5">
+    <a class="btn btn-outline-primary" href="{% url 'client:create'%}">Добавить клиента</a>
+</div>
+{% for object in object_list %}
+<div class="col-md-4">
+    <div class="card mb-4 box-shadow">
+        <div class="card-body">
+            <p class="card-text">{{ object }}</p>
+            <p class="card-text">{{ object.email }}</p>
+            <p class="card-text">{{ object.comment }}</p>
+            {% if object.is_active %}
+                <p class="card-text">Активен</p>
+            {% else %}
+                <p class="card-text">Не активен</p>
+            {% endif %}
+
+            <p class="card-text">
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    {% if perms.client.view_client %}
+                        <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'client:view_client' object.pk %}">View</a></button>
+                    {% endif %}
+                    {% if perms.client.change_client %}
+                        <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'client:edit' object.pk %}">Edit</a></button>
+                    {% endif %}
+                    {% if perms.client.delete_client %}
+                        <button type="button" class="btn btn-sm btn-outline-danger"><a href="{% url 'client:delete' object.pk %}">Delete</a></button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

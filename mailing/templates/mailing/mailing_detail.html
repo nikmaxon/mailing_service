@@ -1,0 +1,33 @@
+{% extends 'mailing/base.html'%}
+{% block content %}
+
+<div class="col-md-6">
+    <div class="card mb-4 box-shadow">
+        <div class="card-body">
+            <p class="card-text">{{ object.mailing_time }}</p>
+            <p class="card-text">{{ object.get_periodicity_display }}</p>
+            <p class="card-text">
+                {% if object.status == 3 %}
+                    <span class="text-muted">{{ object.get_status_display }}</span>
+                {% else %}
+                    {{ object.get_status_display }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="card mb-4 box-shadow">
+        <div class="card-header">
+            <div class="card-title">
+                Отчет по отправке
+            </div>
+        </div>
+        <div class="card-body">
+            {% for log in logs %}
+            <p class="card-text">{{ log.date_attempt }} {{ log.status }} {{ log.answer }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

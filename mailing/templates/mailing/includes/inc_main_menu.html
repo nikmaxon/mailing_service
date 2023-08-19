@@ -1,0 +1,17 @@
+<div class="col-sm-4 offset-md-1 py-4">
+    <h4 class="text-white">Меню</h4>
+    <ul class="list-unstyled">
+        <li><a href="{% url 'mailing:main'%}" class="text-white">Главная</a></li>
+        <li><a href="{% url 'mailing:contact' %}" class="text-white">Контакты</a></li>
+        <li><a href="{% url 'mailing:list' %}" class="text-white">Рассылки</a></li>
+        <li><a href="{% url 'client:list' %}" class="text-white">Клиенты</a></li>
+        <li><a href="{% url 'blog:list' %}" class="text-white">Статьи</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url 'users:logout' %}" class="text-white">Выйти</a></li>
+            <li><a href="{% url 'users:profile' %}" class="text-white">Профиль</a></li>
+        {% else %}
+            <li><a href="{% url 'users:login' %}" class="text-white">Войти</a></li>
+            <li><a href="{% url 'users:register' %}" class="text-white">Регистрация</a></li>
+        {% endif %}
+    </ul>
+</div>

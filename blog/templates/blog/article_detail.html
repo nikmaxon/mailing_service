@@ -1,0 +1,28 @@
+{% extends 'mailing/base.html' %}
+{% load my_tag %}
+{% block content %}
+<div class="col-12">
+    <div class="card mb-3">
+        <div class="card-body">
+            <img src="{{ object.img|mediapath }}" class="card-img-top" alt="..."/>
+            <h5 class="card-title">{{ object.title }}</h5>
+            <p class="card-text">{{object.content| title}}</p>
+            <p class="card-text">{{ object.description }}</p>
+
+            {% if object.is_published %}
+                <a class="btn btn-warning" href="{% url 'blog:toggle_activity' object.pk %}">Опубликовать</a>
+            {% else %}
+                <a class="btn btn-success" href="{% url 'blog:toggle_activity' object.pk %}">Опубликовать</a>
+            {% endif %}
+        </div>
+        <div class="card-footer text-muted ">
+          <div class="float-start">
+          <p class="card-text">Дата создания: {{ object.data_create }}</p>
+          </div>
+          <div class="float-md-end">
+            <p class="card-text ">Просмотры: {{ object.count_views }}</p>
+          </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

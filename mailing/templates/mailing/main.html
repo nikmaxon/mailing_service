@@ -1,0 +1,36 @@
+{% extends 'mailing/base.html'%}
+{% block content %}
+<p>Количество рассылок: {{ mailing }}</p>
+<p>Количество активных рассылок: {{ mailing_active }}</p>
+<p>Количество уникальных клиентов для рассылок: {{ clients }}</p>
+{% for object in article %}
+<div class="col-md-4">
+    <div class="card mb-4 box-shadow">
+        <div class="card-body">
+            <p class="card-text">{{ object.title }}</p>
+            <p class="card-text">
+                {% if object.is_published %}
+                    <span class="text-muted">Опубликовано</span>
+                {% else %}
+                    <span class="text-muted">Не опубликовано</span>
+                {% endif %}
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    {% if perms.blog.view_article %}
+                        <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'blog:view' object.pk %}">View</a></button>
+                    {% endif %}
+                    {% if perms.blog.change_article %}
+                        <button type="button" class="btn btn-sm btn-outline-secondary"><a href="{% url 'blog:edit' object.pk %}">Edit</a></button>
+                    {% endif %}
+                    {% if perms.blog.delete_article%}
+                        <button type="button" class="btn btn-sm btn-outline-danger"><a href="{% url 'blog:delete' object.pk %}">Delete</a></button>
+                    {% endif %}
+                </div>
+                <small class="text-body-secondary">Просмотров: {{ object.count_views }}</small>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'mailing/base.html'%}
+{% block content%}
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">
+                Офис Москва
+            </p>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="card">
+        <div class="card-body">
+            <h2>Напишите нам</h2>
+            <form method="post">
+                {% csrf_token %}
+                <input class="form-control m-2" name="name">
+                <input class="form-control m-2" name="email">
+                <textarea class="form-control m-2" name="message"></textarea>
+                <button type="submit" class="m-2 btn btn-primary form-control">Отправить</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock%}
